@@ -1,44 +1,57 @@
 body {
   margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  color: #fff;
+}
+
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  z-index: -1;
 }
 
 .container {
   text-align: center;
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding-top: 50px;
 }
 
 h1 {
-  color: #ff4d6d;
+  font-size: 2.5rem;
+}
+
+.main-img {
+  width: 200px;
+  height: auto;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.message {
+  font-size: 1.2rem;
+  margin: 20px;
 }
 
 button {
-  margin-top: 20px;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: none;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
+  border-radius: 30px;
+  background: #fff;
+  color: #ff4d6d;
   font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-  background: #e63950;
+  transform: scale(1.1);
 }
 
 .hidden {
   display: none;
   margin-top: 20px;
-  font-size: 18px;
-  color: #333;
+  font-size: 1.2rem;
 }

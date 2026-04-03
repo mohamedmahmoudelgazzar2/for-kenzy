@@ -142,26 +142,37 @@ function saveResponsesToFile() {
   };
 
   // Check if Firebase is initialized
-  if (typeof database === "undefined" || !database) {
-    console.error("Firebase not initialized");
+  if (typeof firebase === "undefined" || !firebase.database) {
+    console.error("Firebase not initialized - database not available");
     showThankYouMessage();
     return;
   }
 
-  // Generate a unique ID based on timestamp
-  const responseId = timestamp.replace(/[:.]/g, '-');
-  
-  // Save to Firebase Realtime Database
-  database.ref('responses/' + responseId).set(responseData)
-    .then(() => {
-      console.log("✅ Response saved successfully to Firebase!");
-      showThankYouMessage();
-    })
-    .catch((error) => {
-      console.error("❌ Error saving to Firebase:", error);
-      // Still show thank you even if Firebase fails
-      showThankYouMessage();
-    });
+  try {
+    // Get database reference
+    const db = firebase.database();
+    
+    // Generate a unique ID based on timestamp
+    const responseId = timestamp.replace(/[:.]/g, '-');
+    
+    // Save to Firebase Realtime Database
+    db.ref('responses/' + responseId).set(responseData)
+      .then(() => {
+        console.log("✅ Response saved successfully to Firebase!");
+        console.log("Data:", responseData);
+        showThankYouMessage();
+      })
+      .catch((error) => {
+        console.error("❌ Error saving to Firebase:", error);
+        console.error("Error code:", error.code);
+        console.error("Error message:", error.message);
+        // Still show thank you even if Firebase fails
+        showThankYouMessage();
+      });
+  } catch (error) {
+    console.error("❌ Exception in saveResponsesToFile:", error);
+    showThankYouMessage();
+  }
 }
 
 function showThankYouMessage() {

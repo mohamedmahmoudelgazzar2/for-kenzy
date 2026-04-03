@@ -124,16 +124,11 @@ function saveResponsesToFile() {
     responses: answers
   };
 
-  const jsonString = JSON.stringify(fileData, null, 2);
-  const blob = new Blob([jsonString], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `questionnaire_responses_${new Date().toISOString().split('T')[0]}.json`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  // Save to browser's local storage instead of downloading
+  localStorage.setItem('questionnaire_responses', JSON.stringify(fileData, null, 2));
+  
+  // Optional: Also log to confirm it's saved
+  console.log('Responses saved to browser storage', fileData);
 }
 
 function showThankYou() {

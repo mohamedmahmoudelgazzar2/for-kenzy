@@ -105,6 +105,11 @@ function handleSwipe() {
 document.addEventListener("click", (e) => {
   createHeart(e.clientX, e.clientY);
 });
+// autoplay after first interaction
+document.addEventListener("click", () => {
+  const music = document.getElementById("bg-music");
+  music.play().catch(() => {});
+}, { once: true });
 
 function createHeart(x, y) {
   const heart = document.createElement("div");

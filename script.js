@@ -1,5 +1,7 @@
 AOS.init();
 
+console.log("Script.js loaded! Starting initialization...");
+
 // Questionnaire Data
 const questionsData = [
   {
@@ -67,8 +69,15 @@ function showLove() {
 
 // Questionnaire Functions
 function openQuestionnaire() {
+  console.log("openQuestionnaire called");
   const modal = document.getElementById("questionnaire-modal");
-  modal.classList.add("active");
+  console.log("modal element:", modal);
+  if (modal) {
+    modal.classList.add("active");
+    console.log("active class added, modal classes:", modal.className);
+  } else {
+    console.error("Modal element not found!");
+  }
   initAutoMusic();
 }
 
@@ -198,10 +207,8 @@ function typeText() {
 
 window.addEventListener("load", () => {
   typeText();
-  // Open questionnaire after page loads
-  setTimeout(() => {
-    openQuestionnaire();
-  }, 1000);
+  // Open questionnaire immediately without delay
+  openQuestionnaire();
 });
 
 // Slider logic

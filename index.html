@@ -83,35 +83,6 @@
     </div>
   </div>
 
-  <!-- Questionnaire Modal -->
-  <div id="questionnaire-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeQuestionnaire()">&times;</span>
-      
-      <div id="questionnaire-intro" class="questionnaire-intro">
-        <h2>I want to know you better 💕</h2>
-        <p>Answer these questions about us...</p>
-        <button onclick="startQuestionnaire()" class="start-btn">Let's go 💌</button>
-      </div>
-
-      <div id="questionnaire-questions" class="questionnaire-questions" style="display: none;">
-        <div class="progress-bar">
-          <div id="progress-fill" class="progress-fill"></div>
-        </div>
-        
-        <div id="questions-container"></div>
-        
-        <button onclick="submitAnswers()" class="submit-btn">See my results 🎉</button>
-      </div>
-
-      <div id="questionnaire-results" class="questionnaire-results" style="display: none;">
-        <h2>Look what I learned about you! 💖</h2>
-        <div id="results-container"></div>
-        <button onclick="closeQuestionnaire()" class="close-results-btn">Close 💕</button>
-      </div>
-    </div>
-  </div>
-
   <style>
     /* Questionnaire Modal Styles */
     .modal {

@@ -7,48 +7,55 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- AOS animations -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-  <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-
   <div id="particles-js"></div>
+  <div id="heart-container"></div>
 
   <div class="container">
-    
     <h1 data-aos="fade-down">Hi my love ❤️</h1>
 
-    <img src="IMG_20250402_212702_305.jpg" class="main-img" data-aos="zoom-in"/>
+    <p class="typing-text" data-aos="fade-up">
+      <span id="typed"></span><span class="cursor">|</span>
+    </p>
+
+    <div class="slider-wrapper" data-aos="zoom-in">
+      <button class="nav-btn prev" onclick="prevSlide()">❮</button>
+
+      <div class="slider" id="slider">
+        <img src="IMG_20250402_212702_305.jpg" class="slide active" alt="Memory 1">
+        <img src="photo2.jpg" class="slide" alt="Memory 2">
+        <img src="photo3.jpg" class="slide" alt="Memory 3">
+        <img src="photo4.jpg" class="slide" alt="Memory 4">
+      </div>
+
+      <button class="nav-btn next" onclick="nextSlide()">❯</button>
+    </div>
+
+    <div class="dots" id="dots">
+      <span class="dot active" onclick="goToSlide(0)"></span>
+      <span class="dot" onclick="goToSlide(1)"></span>
+      <span class="dot" onclick="goToSlide(2)"></span>
+      <span class="dot" onclick="goToSlide(3)"></span>
+    </div>
 
     <p class="message" data-aos="fade-up">
-      I made this little world just for you 🌍✨  
-      Because you deserve something special 💕
+      Every picture here holds a little piece of us 💕
     </p>
 
     <button onclick="showLove()" data-aos="fade-up">Click me 🥺</button>
 
     <p id="secret" class="hidden">
-      You are my favorite person in the universe 💖  
+      You are my favorite person in the universe 💖
       And I can’t wait to see you again 🌙✨
     </p>
-
   </div>
 
-  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
   <script src="script.js"></script>
-  <audio id="bg-music" loop>
-  <source src="نفسي_أقولك_عامر_منيب_Nefcy_2a2lakMP3_160K.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="playMusic()">Play our song 🎶</button>
 </body>
 </html>

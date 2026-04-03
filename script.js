@@ -17,6 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDniKpJsTsCd3YgwwkVqT5m9laK0xX7uV4",
+    authDomain: "for-kenzy.firebaseapp.com",
+    databaseURL: "https://for-kenzy-default-rtdb.firebaseio.com",
+    projectId: "for-kenzy",
+    storageBucket: "for-kenzy.firebasestorage.app",
+    messagingSenderId: "885287454070",
+    appId: "1:885287454070:web:9abdebba924e05fbb36657"
+  };
+
+  if (typeof firebase !== "undefined") {
+    firebase.initializeApp(firebaseConfig);
+    window.database = firebase.database();
+  }
+
   typeText();
   updateSlider();
 });
@@ -106,7 +122,6 @@ function submitAnswers() {
 
   if (answers.length === questionsData.length) {
     saveResponsesToFile();
-    showThankYou();
   } else {
     Swal.fire({
       title: "Hold on!",
@@ -119,19 +134,35 @@ function submitAnswers() {
 
 function saveResponsesToFile() {
   const timestamp = new Date().toISOString();
-  const fileData = {
+  
+  // Create the data object
+  const responseData = {
     timestamp: timestamp,
     responses: answers
   };
 
-  // Save to browser's local storage instead of downloading
-  localStorage.setItem('questionnaire_responses', JSON.stringify(fileData, null, 2));
-  
-  // Optional: Also log to confirm it's saved
-  console.log('Responses saved to browser storage', fileData);
+  // Save to Firebase database
+  saveToFirebase(responseData);
 }
 
-function showThankYou() {
+function saveToFirebase(responseData) {
+  // Generate a unique ID for this response
+  const responseId = window.database.ref('responses').push().key;
+  
+  // Save to Firebase Realtime Database
+  window.database.ref('responses/' + responseId).set(responseData)
+    .then(() => {
+      console.log("✅ Response saved successfully to Firebase!");
+      showThankYouMessage();
+    })
+    .catch((error) => {
+      console.error("❌ Error saving to Firebase:", error);
+      // Still show thank you even if Firebase fails
+      showThankYouMessage();
+    });
+}
+
+function showThankYouMessage() {
   document.getElementById("questionnaire-questions").style.display = "none";
   document.getElementById("questionnaire-results").style.display = "block";
 }

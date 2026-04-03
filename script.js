@@ -11,6 +11,10 @@ function showLove() {
     confirmButtonText: "Aww 🥺"
   });
 }
+function playMusic() {
+  const music = document.getElementById("bg-music");
+  music.play();
+}
 
 particlesJS("particles-js", {
   particles: {

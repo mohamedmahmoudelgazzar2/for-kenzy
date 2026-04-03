@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
     projectId: "for-kenzy",
     storageBucket: "for-kenzy.firebasestorage.app",
     messagingSenderId: "885287454070",
-    appId: "1:885287454070:web:9abdebba924e05fbb36657"
+    appId: "1:885287454070:web:9abdebba924e05fbb36657",
+    measurementId: "G-M2RNCR9EG8"
   };
 
   if (typeof firebase !== "undefined") {
@@ -135,22 +136,23 @@ function submitAnswers() {
 function saveResponsesToFile() {
   const timestamp = new Date().toISOString();
   
-  // Create the data object
   const responseData = {
     timestamp: timestamp,
     responses: answers
   };
 
-  // Save to Firebase database
-  saveToFirebase(responseData);
-}
+  // Check if Firebase is initialized
+  if (typeof database === "undefined" || !database) {
+    console.error("Firebase not initialized");
+    showThankYouMessage();
+    return;
+  }
 
-function saveToFirebase(responseData) {
-  // Generate a unique ID for this response
-  const responseId = window.database.ref('responses').push().key;
+  // Generate a unique ID based on timestamp
+  const responseId = timestamp.replace(/[:.]/g, '-');
   
   // Save to Firebase Realtime Database
-  window.database.ref('responses/' + responseId).set(responseData)
+  database.ref('responses/' + responseId).set(responseData)
     .then(() => {
       console.log("✅ Response saved successfully to Firebase!");
       showThankYouMessage();

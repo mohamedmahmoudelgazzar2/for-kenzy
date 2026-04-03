@@ -134,6 +134,7 @@ function submitAnswers() {
 }
 
 function saveResponsesToFile() {
+  console.log("📝 Starting to save responses...");
   const timestamp = new Date().toISOString();
   
   const responseData = {
@@ -142,24 +143,30 @@ function saveResponsesToFile() {
   };
 
   // Check if Firebase is initialized
-  if (typeof firebase === "undefined" || !firebase.database) {
-    console.error("Firebase not initialized - database not available");
+  if (typeof firebase === "undefined") {
+    console.error("❌ Firebase library not loaded at all");
     showThankYouMessage();
     return;
   }
 
   try {
+    // Get Firebase app instance
+    const app = firebase.app();
+    console.log("✅ Firebase app found:", app.name);
+    
     // Get database reference
     const db = firebase.database();
+    console.log("✅ Database reference obtained");
     
     // Generate a unique ID based on timestamp
     const responseId = timestamp.replace(/[:.]/g, '-');
+    console.log("📤 Saving with ID:", responseId);
     
     // Save to Firebase Realtime Database
     db.ref('responses/' + responseId).set(responseData)
       .then(() => {
-        console.log("✅ Response saved successfully to Firebase!");
-        console.log("Data:", responseData);
+        console.log("✅✅✅ Response saved successfully to Firebase!");
+        console.log("📊 Data saved:", responseData);
         showThankYouMessage();
       })
       .catch((error) => {
@@ -171,6 +178,7 @@ function saveResponsesToFile() {
       });
   } catch (error) {
     console.error("❌ Exception in saveResponsesToFile:", error);
+    console.error("Error details:", error.message);
     showThankYouMessage();
   }
 }

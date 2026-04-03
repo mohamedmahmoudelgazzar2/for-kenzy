@@ -54,13 +54,266 @@
     </p>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <!-- Questionnaire Modal -->
+  <div id="questionnaire-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeQuestionnaire()">&times;</span>
+      
+      <div id="questionnaire-intro" class="questionnaire-intro">
+        <h2>I want to know you better 💕</h2>
+        <p>Answer these questions about us...</p>
+        <button onclick="startQuestionnaire()" class="start-btn">Let's go 💌</button>
+      </div>
+
+      <div id="questionnaire-questions" class="questionnaire-questions" style="display: none;">
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        
+        <div id="questions-container"></div>
+        
+        <button onclick="submitAnswers()" class="submit-btn">See my results 🎉</button>
+      </div>
+
+      <div id="questionnaire-results" class="questionnaire-results" style="display: none;">
+        <h2>Look what I learned about you! 💖</h2>
+        <div id="results-container"></div>
+        <button onclick="closeQuestionnaire()" class="close-results-btn">Close 💕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Questionnaire Modal -->
+  <div id="questionnaire-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeQuestionnaire()">&times;</span>
+      
+      <div id="questionnaire-intro" class="questionnaire-intro">
+        <h2>I want to know you better 💕</h2>
+        <p>Answer these questions about us...</p>
+        <button onclick="startQuestionnaire()" class="start-btn">Let's go 💌</button>
+      </div>
+
+      <div id="questionnaire-questions" class="questionnaire-questions" style="display: none;">
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        
+        <div id="questions-container"></div>
+        
+        <button onclick="submitAnswers()" class="submit-btn">See my results 🎉</button>
+      </div>
+
+      <div id="questionnaire-results" class="questionnaire-results" style="display: none;">
+        <h2>Look what I learned about you! 💖</h2>
+        <div id="results-container"></div>
+        <button onclick="closeQuestionnaire()" class="close-results-btn">Close 💕</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Questionnaire Modal Styles */
+    .modal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, rgba(255, 117, 140, 0.95), rgba(255, 126, 179, 0.95));
+      border-radius: 30px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.2);
+    }
+
+    .questionnaire-intro h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .questionnaire-intro p {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 30px;
+      margin-top: 10px;
+    }
+
+    .start-btn, .submit-btn, .close-results-btn {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      color: white !important;
+      border: 2px solid white !important;
+      padding: 12px !important;
+      border-radius: 20px !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      font-weight: 600 !important;
+    }
+
+    .start-btn:hover, .submit-btn:hover, .close-results-btn:hover {
+      background-color: rgba(255, 255, 255, 0.5) !important;
+      transform: scale(1.05) !important;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: white;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .questionnaire-question {
+      margin-bottom: 25px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .questionnaire-question h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      margin-top: 0;
+      color: white;
+    }
+
+    .questionnaire-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .questionnaire-option {
+      padding: 12px 15px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .questionnaire-option:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(5px);
+    }
+
+    .questionnaire-option.selected {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-color: white;
+      font-weight: 600;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+    }
+
+    .questionnaire-results h2 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .result-item {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid white;
+    }
+
+    .result-item strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1rem;
+      color: white;
+    }
+
+    .result-item span {
+      font-size: 0.95rem;
+      color: white;
+    }
+
+    .close-results-btn {
+      margin-top: 20px;
+    }
+  </style>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="script.js"></script>
   <audio id="bg-music" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
-
-<button onclick="playMusic()">Play our song 🎶</button>
 </body>
 </html>

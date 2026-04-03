@@ -16,7 +16,7 @@
   <div id="heart-container"></div>
 
   <div class="container">
-    <h1 data-aos="fade-down">Hi my love ❤️</h1>
+    <h1 data-aos="fade-down">Hi my Lozaa ❤️</h1>
 
     <p class="typing-text" data-aos="fade-up">
       <span id="typed"></span><span class="cursor">|</span>
@@ -46,12 +46,7 @@
       Every picture here holds a little piece of us 💕
     </p>
 
-    <button onclick="showLove()" data-aos="fade-up">Click me 🥺</button>
-
-    <p id="secret" class="hidden">
-      You are my favorite person in the universe 💖
-      And I can’t wait to see you again 🌙✨
-    </p>
+    <button onclick="openQuestionnaire()" data-aos="fade-up">Click me 🥺</button>
   </div>
 
   <!-- Questionnaire Modal -->
@@ -71,13 +66,15 @@
         </div>
         
         <div id="questions-container"></div>
-        
-        <button onclick="submitAnswers()" class="submit-btn">See my results 🎉</button>
+        <div id="button-container">
+          <button id="next-btn" onclick="moveToNextQuestion()" class="submit-btn" style="display: none;">Next 💌</button>
+          <button id="submit-btn" onclick="submitAnswers()" class="submit-btn" style="display: none;">Take your Reward 🎁</button>
+        </div>
       </div>
 
       <div id="questionnaire-results" class="questionnaire-results" style="display: none;">
-        <h2>Look what I learned about you! 💖</h2>
-        <div id="results-container"></div>
+        <h2>Thank you for taking time to answer the questions 💕</h2>
+        <p class="reward-message">Your responses have been saved. You're amazing! ✨</p>
         <button onclick="closeQuestionnaire()" class="close-results-btn">Close 💕</button>
       </div>
     </div>
@@ -216,34 +213,54 @@
       color: white;
     }
 
-    .questionnaire-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .questionnaire-option {
+    .questionnaire-input {
+      width: 100%;
       padding: 12px 15px;
       background-color: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 15px;
-      cursor: pointer;
-      transition: all 0.3s ease;
       color: white;
-      text-align: left;
       font-size: 0.95rem;
-      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
     }
 
-    .questionnaire-option:hover {
+    .questionnaire-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .questionnaire-input:focus {
+      outline: none;
       background-color: rgba(255, 255, 255, 0.3);
-      transform: translateX(5px);
+      border-color: white;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
-    .questionnaire-option.selected {
-      background-color: rgba(255, 255, 255, 0.5);
+    .questionnaire-textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      color: white;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .questionnaire-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .questionnaire-textarea:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.3);
       border-color: white;
-      font-weight: 600;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
     .submit-btn {
@@ -255,6 +272,14 @@
       margin-bottom: 20px;
       text-align: center;
       margin-top: 0;
+    }
+
+    .reward-message {
+      font-size: 1.1rem;
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+      font-weight: 500;
     }
 
     .result-item {
@@ -281,10 +306,11 @@
       margin-top: 20px;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="script.js"></script>
   <audio id="bg-music" loop>
-  <source src="song.mp3" type="audio/mpeg">
+  <source src="نفسي_أقولك_عامر_منيب.mp3" type="audio/mpeg">
 </audio>
 </body>
 </html>
